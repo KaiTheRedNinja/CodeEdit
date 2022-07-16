@@ -13,11 +13,15 @@ struct SourceControlNavigatorView: View {
     @ObservedObject
     private var workspace: WorkspaceDocument
 
+    @ObservedObject
+    var model: SourceControlModel
+
     @State
     private var selectedSection: Int = 0
 
-    init(workspace: WorkspaceDocument) {
+    init(workspace: WorkspaceDocument, model: SourceControlModel) {
         self.workspace = workspace
+        self.model = model
     }
 
     var body: some View {
@@ -34,9 +38,7 @@ struct SourceControlNavigatorView: View {
             }
 
             if selectedSection == 0 {
-                if let urlString = workspace.fileURL {
-                    ChangesView(workspaceURL: urlString)
-                }
+                ChangesView(model: self.model)
             }
 
             if selectedSection == 1 {

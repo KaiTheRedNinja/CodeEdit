@@ -16,13 +16,18 @@ struct OutlineView: NSViewControllerRepresentable {
     @StateObject
     var workspace: WorkspaceDocument
 
+    @ObservedObject
+    var model: SourceControlModel
+
     @StateObject
     var prefs: AppPreferencesModel = .shared
 
     typealias NSViewControllerType = OutlineViewController
 
     func makeNSViewController(context: Context) -> OutlineViewController {
+        print(model.changed)
         let controller = OutlineViewController()
+        controller.model = model
         controller.workspace = workspace
         controller.iconColor = prefs.preferences.general.fileIconStyle
 

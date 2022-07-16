@@ -17,12 +17,6 @@ struct ChangesView: View {
     @State
     var selectedFile: ChangedFile.ID?
 
-    /// Initialize with GitClient
-    /// - Parameter gitClient: a GitClient
-    init(workspaceURL: URL) {
-        self.model = .init(workspaceURL: workspaceURL)
-    }
-
     var body: some View {
         VStack(alignment: .center) {
             if model.changed.isEmpty {

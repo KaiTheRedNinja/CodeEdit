@@ -214,7 +214,7 @@ public extension WorkspaceClient {
                 .receive(on: RunLoop.main)
                 .eraseToAnyPublisher(),
             getFileItem: { id in
-                guard let item = flattenedFileItems[id] else {
+                    guard let item = flattenedFileItems[id] else {
                     throw WorkspaceClientError.fileNotExist
                 }
                 return item

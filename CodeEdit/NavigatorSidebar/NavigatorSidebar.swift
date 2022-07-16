@@ -14,6 +14,9 @@ struct NavigatorSidebar: View {
 
     private let windowController: NSWindowController
 
+    @ObservedObject
+    private var model: SourceControlModel
+
     @State
     private var selection: Int = 0
 
@@ -21,6 +24,7 @@ struct NavigatorSidebar: View {
 
     init(workspace: WorkspaceDocument, windowController: NSWindowController) {
         self.workspace = workspace
+        self.model = .init(workspaceURL: workspace.fileURL!)
         self.windowController = windowController
     }
 
@@ -28,9 +32,9 @@ struct NavigatorSidebar: View {
         VStack {
             switch selection {
             case 0:
-                ProjectNavigator(workspace: workspace, windowController: windowController)
+                ProjectNavigator(workspace: workspace, windowController: windowController, model: model)
             case 1:
-                SourceControlNavigatorView(workspace: workspace)
+                SourceControlNavigatorView(workspace: workspace, model: model)
             case 2:
                 FindNavigator(state: workspace.searchState ?? .init(workspace))
             case 7:

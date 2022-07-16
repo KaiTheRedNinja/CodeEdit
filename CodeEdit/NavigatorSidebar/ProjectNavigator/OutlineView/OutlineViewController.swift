@@ -18,6 +18,8 @@ final class OutlineViewController: NSViewController {
 
     typealias Item = WorkspaceClient.FileItem
 
+    var model: SourceControlModel!
+
     var scrollView: NSScrollView!
     var outlineView: NSOutlineView!
 
@@ -177,8 +179,9 @@ extension OutlineViewController: NSOutlineViewDelegate {
             view.fileItem = item
             view.icon.image = image
             view.icon.contentTintColor = color(for: item)
-
+            view.model = model
             view.label.stringValue = outlineViewLabel(for: item)
+            view.computeGitStatus()
         }
 
         return view

@@ -14,6 +14,7 @@ final class OutlineTableViewCell: NSTableCellView {
     var label: NSTextField!
     var icon: NSImageView!
     var fileItem: WorkspaceClient.FileItem!
+    var model: SourceControlModel!
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -54,6 +55,13 @@ final class OutlineTableViewCell: NSTableCellView {
         self.label.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 1).isActive = true
         self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 1).isActive = true
         self.label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+
+    func computeGitStatus() {
+        print("computing git status for \(fileItem.title) out of \(model.changed.count) items")
+        for changedItem in model.changed where changedItem.fileLink == fileItem.url {
+            print("Status for \(fileItem.url): \(changedItem.changeType!)")
+        }
     }
 
     required init?(coder: NSCoder) {

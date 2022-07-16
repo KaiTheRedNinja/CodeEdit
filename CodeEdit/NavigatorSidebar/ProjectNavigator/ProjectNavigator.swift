@@ -19,7 +19,10 @@ struct ProjectNavigator: View {
     @ObservedObject var workspace: WorkspaceDocument
     var windowController: NSWindowController
 
+    @ObservedObject
+    var model: SourceControlModel
+
     var body: some View {
-        OutlineView(workspace: workspace)
+        OutlineView(workspace: workspace, model: model)
     }
 }
